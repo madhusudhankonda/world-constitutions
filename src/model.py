@@ -19,3 +19,5 @@ def get_llm():
 def get_embeddings():
     
     ollama_embeddings = OllamaEmbeddings(base_url=OLLAMA_BASE_URL, model=MODEL)
+
+    return ollama_embeddings

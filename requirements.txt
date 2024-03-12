@@ -1,3 +1,8 @@
 langchain
+langchainhub
 chromadb
 python_dotenv
+streamlit
+pypdf
+chromadb
+pymupdf
