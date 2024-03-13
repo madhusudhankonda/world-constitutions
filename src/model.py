@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from langchain_community.chat_models import ChatOllama
 from langchain_community.embeddings import OllamaEmbeddings
 import config
-load_dotenv()
 
 
 MODEL = config.MODEL

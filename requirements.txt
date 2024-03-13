@@ -6,3 +6,4 @@ streamlit
 pypdf
 chromadb
 pymupdf
+country_list

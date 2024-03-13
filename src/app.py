@@ -1,7 +1,7 @@
 import os
 
 import streamlit as st
-
+from country_list import countries_for_language
 from langchain_community.chat_models import ChatOllama
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain import hub
@@ -11,10 +11,6 @@ from answer import answer
 
 col1,col2,col3,col4,col5,col6= st.columns(6)
 
-with col1:
-    option = st.selectbox(
-        'Country',
-        ('Italy', 'France', 'United Kingdom'))
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -40,3 +36,8 @@ with col6:
     st.button("clear history", type="primary")    
     if st.button:
         st.session_state.messages = []
+
+with st.sidebar:
+    all_countries = [country[1] for country in countries_for_language('en')]
+
+    selected_country = st.selectbox("Select country:", all_countries)
