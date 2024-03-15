@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from country_list import countries_for_language
+# from country_list import countries_for_language
 from langchain_community.chat_models import ChatOllama
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain import hub
@@ -12,26 +12,21 @@ from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 
 
-
-
 st.set_page_config(
     page_title="ConstitutionBot",
     page_icon="\U0001F4D6",
     layout="wide"
 )
 
+st.header("World Constitutions AI Assistant")
+st.markdown("#### I am an AI assistant, here to help you understand, learn and query on world Constitutions!")
 with st.sidebar:
     all_countries = ["Italy","France"]
 
     selected_country = st.selectbox("Select country:", all_countries)
 
 
-
-
-
-
-
-st.title("Italy")
+st.title("Italy Constitution AI Assistant")
 
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [

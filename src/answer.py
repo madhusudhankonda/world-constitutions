@@ -32,7 +32,7 @@ def get_qa_chain(memory):
         search_type="similarity", search_kwargs={"k": 4})
     
     memory = memory
-    qa_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever, memory=memory, verbose =True)
+    qa_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever, memory=memory, verbose = False)
 
     return qa_chain
 
