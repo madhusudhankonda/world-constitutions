@@ -4,8 +4,10 @@ from langchain import hub
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain.vectorstores.chroma import Chroma
-
+from langchain.chains import RetrievalQA, ConversationalRetrievalChain
+from langchain.memory import ConversationBufferMemory
 import config, model
+from langchain.prompts import PromptTemplate
 
 llm = model.get_llm()
 embeddings = model.get_embeddings()
@@ -22,23 +24,21 @@ def get_vector_store():
 
     return vector_store
 
-def get_qa_chain():
+
+def get_qa_chain(memory):
     vector_store = get_vector_store()
 
     retriever = vector_store.as_retriever(
         search_type="similarity", search_kwargs={"k": 4})
-
-    qa_chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
-    | prompt
-    | llm
-    | StrOutputParser()    
-    )
+    
+    memory = memory
+    qa_chain = ConversationalRetrievalChain.from_llm(llm=llm, retriever=retriever, memory=memory, verbose =True)
 
     return qa_chain
 
-def answer(query):
-    qa_chain = get_qa_chain()
-    result = qa_chain.invoke(query)
+def answer(query,memory):
+    qa_chain = get_qa_chain(memory)
+    result = qa_chain(query)
     
-    return result
+    return result['answer']
+
