@@ -18,19 +18,11 @@ st.set_page_config(
     layout="wide"
 )
 
-st.header("World Constitutions AI Assistant")
-st.markdown("#### I am an AI assistant, here to help you understand, learn and query on world Constitutions!")
-with st.sidebar:
-    all_countries = ["Italy","France"]
-
-    selected_country = st.selectbox("Select country:", all_countries)
-
-
-st.title("Italy Constitution AI Assistant")
-
+st.header("France Constitution AI Assistant")
+st.markdown("#### I am an AI assistant, here to help you understand, learn and query on France's Constitution!")
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [
-        {"role": "assistant","content": "Ask anything about the Italian Constitution!"}
+        {"role": "assistant","content": "Ask anything about the French Constitution!"}
     ]
 
 if "chat_memory" not in st.session_state.keys():
