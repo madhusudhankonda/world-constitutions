@@ -6,7 +6,7 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain import hub
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
-from answer import answer
+from answer import answer, top_5_ques
 import streamlit as st
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
@@ -18,8 +18,13 @@ st.set_page_config(
     layout="wide"
 )
 
-st.header("France Constitution AI Assistant")
+st.header("French Constitution AI Assistant")
 st.markdown("#### I am an AI assistant, here to help you understand, learn and query on France's Constitution!")
+with st.sidebar:
+    st.write("Top 10 question recommendations:")
+    if st.button("click"):
+        questions = top_5_ques('France')
+        st.write(questions)
 if "messages" not in st.session_state.keys():
     st.session_state.messages = [
         {"role": "assistant","content": "Ask anything about the French Constitution!"}
@@ -46,7 +51,7 @@ if user_prompt is not None:
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Loading..."):
-            ai_response= answer(user_prompt,memory)
+            ai_response= answer(user_prompt,'France',memory)
             st.write(ai_response)
     new_ai_message = {"role":"assistant", "content":ai_response}
     st.session_state.messages.append(new_ai_message)
